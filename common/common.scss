@@ -1,3 +1,7 @@
+.topic-thumbnail-likes {
+  display: none;
+}
+
 .topic-thumbnails-list,
 .topic-thumbnails-grid,
 .topic-thumbnails-masonry,
@@ -224,6 +228,10 @@
 
 .topic-thumbnails-minimal {
   margin-top: 5px;
+  
+  .topic-thumbnail-likes {
+    display: inline;
+  }
   
   thead,
   tr.topic-list-item-separator {
