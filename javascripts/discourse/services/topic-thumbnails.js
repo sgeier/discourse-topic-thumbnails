@@ -5,7 +5,7 @@ import Site from "discourse/models/site";
 
 const minimalGridCategories = settings.minimal_grid_categories
   .split("|")
-  .map((id) => parseInt(id,10));
+  .map((id) => parseInt(id, 10));
 
 const listCategories = settings.list_categories
   .split("|")
@@ -46,6 +46,16 @@ export default Service.extend({
 
   @discourseComputed(
     "router.currentRouteName",
+    "router.currentRoute.params.category_slug_path_with_id"
+  )
+  viewingTagCategoryParent(currentRouteName, categoryPathSlug) {
+    return parseInt(
+      categoryPathSlug.substring(categoryPathSlug.lastIndexOf("/") + 1)
+    );
+  },
+
+  @discourseComputed(
+    "router.currentRouteName",
     "router.currentRoute.attributes.id"
   )
   viewingTagId(currentRouteName, tagId) {
@@ -57,20 +67,24 @@ export default Service.extend({
     "viewingCategoryId",
     "viewingTagId",
     "router.currentRoute.metadata.customThumbnailMode",
-    "isTopicListRoute"
+    "isTopicListRoute",
+    "viewingTagCategoryParent"
   )
   displayMode(
     viewingCategoryId,
     viewingTagId,
     customThumbnailMode,
-    isTopicListRoute
+    isTopicListRoute,
+    viewingTagCategoryParent
   ) {
     if (customThumbnailMode) return customThumbnailMode;
     if (minimalGridCategories.includes(viewingCategoryId)) {
       return "minimal-grid";
     } else if (masonryCategories.includes(viewingCategoryId)) {
       return "masonry";
-    } else if (gridCategories.includes(viewingCategoryId)) {
+    } else if (
+      gridCategories.includes(viewingCategoryId || viewingTagCategoryParent)
+    ) {
       return "grid";
     } else if (listCategories.includes(viewingCategoryId)) {
       return "list";
