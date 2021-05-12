@@ -49,6 +49,7 @@ export default Service.extend({
     "router.currentRoute.params.category_slug_path_with_id"
   )
   viewingTagCategoryParent(currentRouteName, categoryPathSlug) {
+    if (!currentRouteName.match(/^tags?\.showCategory/)) return;
     return parseInt(
       categoryPathSlug.substring(categoryPathSlug.lastIndexOf("/") + 1)
     );
