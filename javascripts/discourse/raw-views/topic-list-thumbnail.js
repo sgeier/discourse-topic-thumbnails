@@ -60,9 +60,7 @@ export default EmberObject.extend({
 
   @discourseComputed("topic.thumbnails")
   original(thumbnails) {
-    //return thumbnails[0];
-	  console.log('Topic thumbnails.', thumbnails)
-    return thumbnails[thumbnails.length - 1];
+    return thumbnails.filter(image => image.width === 300)[0];
   },
 
   @discourseComputed("original")
