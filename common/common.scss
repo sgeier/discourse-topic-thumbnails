@@ -425,3 +425,7 @@
   box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.8) inset;
   pointer-events: none;
 }
+/* Vignettes on thumbs */
+.topic-list-item.archived {
+  display: none;
+}
