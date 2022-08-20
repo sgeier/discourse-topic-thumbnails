@@ -43,10 +43,9 @@ export default {
 
       didInsertElement() {
         this._super();
-        console.log('Going to filter the 3 lists now by dom.')
 
         const $list = $('#initial-posts .topic-list-item').not(".pinned");
-        console.log($list)
+        $list.remove();
       },
     });
 
