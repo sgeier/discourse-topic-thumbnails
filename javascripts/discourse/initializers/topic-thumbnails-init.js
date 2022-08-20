@@ -72,9 +72,9 @@ export default {
 
       didInsertElement() {
         this._super();
-        this._scrollTriggered();
+        //this._scrollTriggered();
 
-        const debouncedScroll = () => Ember.run.debounce(this, this._scrollTriggered, 100);
+        //const debouncedScroll = () => Ember.run.debounce(this, this._scrollTriggered, 100);
 
     }});
 
