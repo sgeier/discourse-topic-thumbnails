@@ -43,7 +43,25 @@ export default {
 
       didInsertElement() {
         this._super();
+        this.updateElementHeight();
 
+        if (window.ResizeObserver) {
+          const observer = new ResizeObserver(() =>
+              this.updateElementHeight()
+          );
+          observer.observe(this.element);
+          this.set("resizeObserver", observer);
+        }
+      },
+
+      willDestroyElement() {
+        this._super();
+        if (this.resizeObserver) {
+          this.resizeObserver.unobserve(this.element);
+        }
+      },
+
+      updateElementHeight() {
         const $listPinned = $('#initial-pinned-posts .topic-list-item').not(".pinned");
         $listPinned.remove();
 
@@ -54,7 +72,6 @@ export default {
         $listOther.remove();
       },
     });
-
 
     api.modifyClass("component:topic-list-item", {
       pluginId: "topic-thumbnails",
