@@ -61,7 +61,7 @@ export default {
           const observer = new ResizeObserver(() =>
               throttle(runPosts, 500)
           );
-          observer.observe(this.element);
+          observer.observe($('#initial-pinned-posts')[0]);
           this.set("resizeObserver", observer);
         }
       },
