@@ -48,12 +48,11 @@
 </td>
 
 {{#if showPosters}}
-{{!--
-    Custom added
+    {{!--
+        Custom added
+    --}}
 
-    Old: {{raw "list/posters-column" posters=topic.featuredUsers}}
---}}
-    <a href="{{topic.lastPostUrl}}" data-user-card="{{topic.lastPosterUser.username}}">{{avatar topic.lastPosterUser imageSize="small"}}</a>
+        {{raw "list/posters-column" posters=topic.featuredUsers}}
 {{/if}}
 
 {{raw "list/posts-count-column" topic=topic}}
