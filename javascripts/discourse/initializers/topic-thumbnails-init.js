@@ -43,11 +43,11 @@ export default {
 
       didInsertElement() {
         this._super();
-        this.updateElementHeight();
+        this.updatePosts();
 
         if (window.ResizeObserver) {
           const observer = new ResizeObserver(() =>
-              this.updateElementHeight()
+              this.updatePosts()
           );
           observer.observe(this.element);
           this.set("resizeObserver", observer);
@@ -61,7 +61,7 @@ export default {
         }
       },
 
-      updateElementHeight() {
+      updatePosts() {
         const $listPinned = $('#initial-pinned-posts .topic-list-item').not(".pinned");
         $listPinned.remove();
 
