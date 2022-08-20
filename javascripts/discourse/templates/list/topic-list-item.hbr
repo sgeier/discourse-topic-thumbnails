@@ -48,11 +48,7 @@
 </td>
 
 {{#if showPosters}}
-    {{!--
-        Custom added
-    --}}
-
-        {{raw "list/posters-column" posters=topic.featuredUsers}}
+  {{raw "list/posters-column" posters=topic.featuredUsers}}
 {{/if}}
 
 {{raw "list/posts-count-column" topic=topic}}
