@@ -74,6 +74,7 @@ export default {
       },
 
       updatePosts() {
+        console.log('UpdatePosts()')
         const $listPinned = $('#initial-pinned-posts .topic-list-item').not(".pinned");
         $listPinned.remove();
 
