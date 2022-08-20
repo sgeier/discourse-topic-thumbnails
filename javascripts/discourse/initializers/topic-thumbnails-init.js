@@ -44,11 +44,16 @@ export default {
       didInsertElement() {
         this._super();
 
-        const $list = $('#initial-posts .topic-list-item').not(".pinned");
-        $list.remove();
+        const $listPinned = $('#initial-pinned-posts .topic-list-item').not(".pinned");
+        $listPinned.remove();
+
+        const $listUnread = $('#initial-unread-posts .topic-list-item').not(".unread-posts");
+        $listUnread.remove();
+
+        const $listOther = $('#initial-other-posts .topic-list-item').not(".pinned").not('.unread-posts');
+        $listOther.remove();
       },
     });
-
 
 
     api.modifyClass("component:topic-list-item", {
