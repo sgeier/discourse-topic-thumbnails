@@ -37,6 +37,20 @@ export default {
       }
     }
 
+    window.addEventListener('scroll', throttle(updatePosts, 500));
+
+    function updatePosts() {
+      console.log('UpdatePosts()')
+      const $listPinned = $('#initial-pinned-posts .topic-list-item').not(".pinned");
+      $listPinned.remove();
+
+      const $listUnread = $('#initial-unread-posts .topic-list-item').not(".unread-posts");
+      $listUnread.remove();
+
+      const $listOther = $('#initial-other-posts .topic-list-item').not(".pinned").not('.unread-posts');
+      $listOther.remove();
+    }
+
     api.modifyClass("component:topic-list", {
       pluginId: "topic-thumbnails",
       topicThumbnailsService: service("topic-thumbnails"),
@@ -51,40 +65,10 @@ export default {
       isThumbnailList: readOnly("topicThumbnailsService.displayList"),
       isMasonryList: readOnly("topicThumbnailsService.displayMasonry"),
 
-
       didInsertElement() {
         this._super();
-        this.updatePosts();
-        const runPosts = this.updatePosts();
-
-        if (window.ResizeObserver) {
-          const observer = new ResizeObserver(() =>
-              throttle(runPosts, 500)
-          );
-          observer.observe($('#initial-pinned-posts')[0]);
-          this.set("resizeObserver", observer);
-        }
-      },
-
-      willDestroyElement() {
-        this._super();
-        if (this.resizeObserver) {
-          this.resizeObserver.unobserve(this.element);
-        }
-      },
-
-      updatePosts() {
-        console.log('UpdatePosts()')
-        const $listPinned = $('#initial-pinned-posts .topic-list-item').not(".pinned");
-        $listPinned.remove();
-
-        const $listUnread = $('#initial-unread-posts .topic-list-item').not(".unread-posts");
-        $listUnread.remove();
-
-        const $listOther = $('#initial-other-posts .topic-list-item').not(".pinned").not('.unread-posts');
-        $listOther.remove();
-      },
-    });
+        updatePosts();
+    }});
 
     api.modifyClass("component:topic-list-item", {
       pluginId: "topic-thumbnails",
