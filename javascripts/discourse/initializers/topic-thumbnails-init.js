@@ -26,6 +26,7 @@ export default {
   },
 
   initWithApi(api) {
+
     api.modifyClass("component:topic-list", {
       pluginId: "topic-thumbnails",
       topicThumbnailsService: service("topic-thumbnails"),
@@ -39,7 +40,11 @@ export default {
       isThumbnailGrid: readOnly("topicThumbnailsService.displayGrid"),
       isThumbnailList: readOnly("topicThumbnailsService.displayList"),
       isMasonryList: readOnly("topicThumbnailsService.displayMasonry"),
+
+
     });
+
+
 
     api.modifyClass("component:topic-list-item", {
       pluginId: "topic-thumbnails",
@@ -209,6 +214,8 @@ export default {
           ).htmlSafe();
         },
       });
+
+      console.log('Going to filter the 3 lists now by dom.')
     }
   },
 };
