@@ -55,10 +55,11 @@ export default {
       didInsertElement() {
         this._super();
         this.updatePosts();
+        const runPosts = this.updatePosts();
 
         if (window.ResizeObserver) {
           const observer = new ResizeObserver(() =>
-              throttle(this.updatePosts, 500)
+              throttle(runPosts, 500)
           );
           observer.observe(this.element);
           this.set("resizeObserver", observer);
