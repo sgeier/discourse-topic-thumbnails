@@ -55,7 +55,7 @@ export default {
       isMasonryList: readOnly("topicThumbnailsService.displayMasonry"),
 
       _scrollTriggered() {
-        Ember.run.scheduleOnce('afterRender', this, this.scrolled);
+        Ember.run.scheduleOnce('afterRender', this, this.updatePosts);
       },
 
       updatePosts() {
@@ -73,7 +73,7 @@ export default {
       didInsertElement() {
         this._super();
         this.updatePosts();
-        const debouncedScroll = () => Ember.run.debounce(this, this.updatePosts, 10);
+        const debouncedScroll = () => Ember.run.debounce(this, this._scrollTriggered, 10);
 
     }});
 
