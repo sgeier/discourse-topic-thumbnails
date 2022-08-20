@@ -37,7 +37,7 @@ export default {
       }
     }
 
-    window.addEventListener('scroll', throttle(updatePosts, 500));
+    window.addEventListener('scroll', throttle(updatePosts, 2000));
 
     function updatePosts() {
       console.log('UpdatePosts()')
