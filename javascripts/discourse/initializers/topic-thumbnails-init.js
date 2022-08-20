@@ -37,19 +37,8 @@ export default {
       }
     }
 
-    window.addEventListener('scroll', throttle(updatePosts, 2000));
 
-    function updatePosts() {
-      console.log('UpdatePosts()')
-      const $listPinned = $('#initial-pinned-posts .topic-list-item').not(".pinned.unseen-topic");
-      $listPinned.remove();
 
-      const $listUnread = $('#initial-unread-posts .topic-list-item').not(".unread-posts");
-      $listUnread.remove();
-
-      const $listOther = $('#initial-other-posts .topic-list-item').not(".pinned").not('.unread-posts');
-      $listOther.remove();
-    }
 
     api.modifyClass("component:topic-list", {
       pluginId: "topic-thumbnails",
@@ -65,9 +54,27 @@ export default {
       isThumbnailList: readOnly("topicThumbnailsService.displayList"),
       isMasonryList: readOnly("topicThumbnailsService.displayMasonry"),
 
+      _scrollTriggered() {
+        Ember.run.scheduleOnce('afterRender', this, this.scrolled);
+      },
+
+      updatePosts() {
+      console.log('UpdatePosts()')
+      const $listPinned = $('#initial-pinned-posts .topic-list-item').not(".pinned.unseen-topic");
+      $listPinned.remove();
+
+      const $listUnread = $('#initial-unread-posts .topic-list-item').not(".unread-posts");
+      $listUnread.remove();
+
+      const $listOther = $('#initial-other-posts .topic-list-item').not(".pinned.unseen-topic").not('.unread-posts');
+      $listOther.remove();
+    },
+
       didInsertElement() {
         this._super();
-        updatePosts();
+        this.updatePosts();
+        const debouncedScroll = () => Ember.run.debounce(this, this.updatePosts, 10);
+
     }});
 
     api.modifyClass("component:topic-list-item", {
