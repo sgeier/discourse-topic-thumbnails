@@ -33,7 +33,6 @@
     {{~/if}}
   </span>
   <div class="link-bottom-line">
-      Soren testing.
     {{#unless hideCategory}}
       {{#unless topic.isPinnedUncategorized}}
         {{~raw-plugin-outlet name="topic-list-before-category"}}
@@ -49,7 +48,7 @@
 </td>
 
 {{#if showPosters}}
-  {{raw "list/posters-column" posters=topic.lastPosterUser}}
+  {{raw "list/posters-column" posters=topic.featuredUsers}}
 {{/if}}
 
 {{raw "list/posts-count-column" topic=topic}}
