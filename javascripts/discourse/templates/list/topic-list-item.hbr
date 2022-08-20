@@ -48,7 +48,7 @@
 </td>
 
 {{#if showPosters}}
-  {{raw "list/posters-column" posters=topic.featuredUsers}}
+    <a href="{{topic.lastPostUrl}}" data-user-card="{{topic.lastPosterUser.username}}">{{avatar topic.lastPosterUser imageSize="large"}}</a>
 {{/if}}
 
 {{raw "list/posts-count-column" topic=topic}}
