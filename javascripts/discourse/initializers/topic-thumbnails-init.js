@@ -216,6 +216,8 @@ export default {
       });
 
       console.log('Going to filter the 3 lists now by dom.')
+      const list = document.querySelectorAll(`#initial-posts .topic-list-item:not(".pinned")`);
+      list.forEach((node) => $(node).remove());
     }
   },
 };
