@@ -41,7 +41,7 @@ export default {
 
     function updatePosts() {
       console.log('UpdatePosts()')
-      const $listPinned = $('#initial-pinned-posts .topic-list-item').not(".pinned");
+      const $listPinned = $('#initial-pinned-posts .topic-list-item').not(".pinned").not('unseen-topic');
       $listPinned.remove();
 
       const $listUnread = $('#initial-unread-posts .topic-list-item').not(".unread-posts");
