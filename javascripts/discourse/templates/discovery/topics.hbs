@@ -29,19 +29,9 @@
   <PluginOutlet @name="before-topic-list" @tagName="span" @connectorTagName="div" @args={{hash category=this.category}} />
 
   {{#if this.hasTopics}}
-    <div id="initial-pinned-posts">
+    <div id="main-topic-list">
       <TopicList @highlightLastVisited={{true}} @top={{this.top}} @showTopicPostBadges={{this.showTopicPostBadges}} @showPosters={{true}} @canBulkSelect={{this.canBulkSelect}} @changeSort={{route-action "changeSort"}} @toggleBulkSelect={{action "toggleBulkSelect"}} @updateAutoAddTopicsToBulkSelect={{action "updateAutoAddTopicsToBulkSelect"}} @hideCategory={{this.model.hideCategory}} @order={{this.order}} @ascending={{this.ascending}} @bulkSelectEnabled={{this.bulkSelectEnabled}} @bulkSelectAction={{action "refresh"}} @selected={{this.selected}} @expandGloballyPinned={{this.expandGloballyPinned}} @expandAllPinned={{this.expandAllPinned}} @category={{this.category}} @topics={{this.model.topics}} @discoveryList={{true}} @scrollOnLoad={{true}} @onScroll={{discoveryTopicList.saveScrollPosition}} @focusLastVisitedTopic={{true}} />
     </div>
-     <!-- <br><br>
-      <h2>Unread</h2>
-      <div id="initial-unread-posts">
-      <TopicList @highlightLastVisited={{true}} @top={{this.top}} @showTopicPostBadges={{this.showTopicPostBadges}} @showPosters={{true}} @canBulkSelect={{this.canBulkSelect}} @changeSort={{route-action "changeSort"}} @toggleBulkSelect={{action "toggleBulkSelect"}} @updateAutoAddTopicsToBulkSelect={{action "updateAutoAddTopicsToBulkSelect"}} @hideCategory={{this.model.hideCategory}} @order={{this.order}} @ascending={{this.ascending}} @bulkSelectEnabled={{this.bulkSelectEnabled}} @bulkSelectAction={{action "refresh"}} @selected={{this.selected}} @expandGloballyPinned={{this.expandGloballyPinned}} @expandAllPinned={{this.expandAllPinned}} @category={{this.category}} @topics={{this.model.topics}} @discoveryList={{true}} @scrollOnLoad={{true}} @onScroll={{discoveryTopicList.saveScrollPosition}} @focusLastVisitedTopic={{true}} />
-    </div>
-      <br><br>
-      <h2>Unseen</h2>
-      <div id="initial-other-posts">
-      <TopicList @highlightLastVisited={{true}} @top={{this.top}} @showTopicPostBadges={{this.showTopicPostBadges}} @showPosters={{true}} @canBulkSelect={{this.canBulkSelect}} @changeSort={{route-action "changeSort"}} @toggleBulkSelect={{action "toggleBulkSelect"}} @updateAutoAddTopicsToBulkSelect={{action "updateAutoAddTopicsToBulkSelect"}} @hideCategory={{this.model.hideCategory}} @order={{this.order}} @ascending={{this.ascending}} @bulkSelectEnabled={{this.bulkSelectEnabled}} @bulkSelectAction={{action "refresh"}} @selected={{this.selected}} @expandGloballyPinned={{this.expandGloballyPinned}} @expandAllPinned={{this.expandAllPinned}} @category={{this.category}} @topics={{this.model.topics}} @discoveryList={{true}} @scrollOnLoad={{true}} @onScroll={{discoveryTopicList.saveScrollPosition}} @focusLastVisitedTopic={{true}} />
-    </div>-->
   {{/if}}
 
   <PluginOutlet @name="after-topic-list" @tagName="span" @connectorTagName="div" @args={{hash category=this.category}} />
