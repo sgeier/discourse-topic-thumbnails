@@ -6,7 +6,7 @@ default_thumbnail_mode:
     - grid
     - masonry
     - list
-    - none 
+    - none
 
 minimal_grid_categories:
   type: list
@@ -47,6 +47,17 @@ list_tags:
   type: list
   list_type: tag
   default: ""
+
+suggested_topics_mode:
+  default: ""
+  type: enum
+  choices:
+    - ""
+    - minimal-grid
+    - grid
+    - masonry
+    - list
+    - none
 
 enable_outside_topic_lists: false
 

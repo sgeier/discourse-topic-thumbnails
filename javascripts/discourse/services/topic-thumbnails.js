@@ -1,11 +1,10 @@
-import Service from "@ember/service";
-import { inject as service } from "@ember/service";
+import Service, { inject as service } from "@ember/service";
 import discourseComputed from "discourse-common/utils/decorators";
 import Site from "discourse/models/site";
 
 const minimalGridCategories = settings.minimal_grid_categories
   .split("|")
-  .map((id) => parseInt(id,10));
+  .map((id) => parseInt(id, 10));
 
 const listCategories = settings.list_categories
   .split("|")
@@ -35,37 +34,51 @@ export default Service.extend({
     );
   },
 
+  @discourseComputed("router.currentRouteName")
+  isTopicRoute(currentRouteName) {
+    return currentRouteName.match(/^topic\./);
+  },
+
   @discourseComputed(
     "router.currentRouteName",
     "router.currentRoute.attributes.category.id"
   )
   viewingCategoryId(currentRouteName, categoryId) {
-    if (!currentRouteName.match(/^discovery\./)) return;
+    if (!currentRouteName.match(/^discovery\./)) {
+      return;
+    }
     return categoryId;
   },
 
   @discourseComputed(
     "router.currentRouteName",
-    "router.currentRoute.attributes.id"
+    "router.currentRoute.attributes.id", // For discourse instances earlier than https://github.com/discourse/discourse/commit/f7b5ff39cf
+    "router.currentRoute.attributes.tag.id"
   )
-  viewingTagId(currentRouteName, tagId) {
-    if (!currentRouteName.match(/^tags?\.show/)) return;
-    return tagId;
+  viewingTagId(currentRouteName, legacyTagId, tagId) {
+    if (!currentRouteName.match(/^tags?\.show/)) {
+      return;
+    }
+    return tagId || legacyTagId;
   },
 
   @discourseComputed(
     "viewingCategoryId",
     "viewingTagId",
     "router.currentRoute.metadata.customThumbnailMode",
-    "isTopicListRoute"
+    "isTopicListRoute",
+    "isTopicRoute"
   )
   displayMode(
     viewingCategoryId,
     viewingTagId,
     customThumbnailMode,
-    isTopicListRoute
+    isTopicListRoute,
+    isTopicRoute
   ) {
-    if (customThumbnailMode) return customThumbnailMode;
+    if (customThumbnailMode) {
+      return customThumbnailMode;
+    }
     if (minimalGridCategories.includes(viewingCategoryId)) {
       return "minimal-grid";
     } else if (masonryCategories.includes(viewingCategoryId)) {
@@ -82,6 +95,8 @@ export default Service.extend({
       return "grid";
     } else if (listTags.includes(viewingTagId)) {
       return "list";
+    } else if (isTopicRoute && settings.suggested_topics_mode) {
+      return settings.suggested_topics_mode;
     } else if (isTopicListRoute || settings.enable_outside_topic_lists) {
       return settings.default_thumbnail_mode;
     } else {

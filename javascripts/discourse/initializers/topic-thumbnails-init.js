@@ -7,6 +7,7 @@ import {
   getResolverOption,
   setResolverOption,
 } from "discourse-common/resolver";
+import { htmlSafe } from "@ember/template";
 
 export default {
   name: "topic-thumbnails-init",
@@ -84,6 +85,7 @@ export default {
 
       // Hack to disable the mobile topic-list-item template
       // Our grid styling is responsive, and uses the desktop HTML structure
+      @observes("topic.pinned")
       renderTopicListItem() {
         const wasMobileView = getResolverOption("mobileView");
         if (
@@ -133,7 +135,9 @@ export default {
 
         didInsertElement() {
           this._super();
-          if (!this.topicThumbnailsService.displayMasonry) return;
+          if (!this.topicThumbnailsService.displayMasonry) {
+            return;
+          }
           this.updateElementHeight();
 
           if (window.ResizeObserver) {
@@ -161,8 +165,12 @@ export default {
 
         @observes("topics.[]", "masonryContainerWidth")
         masonryTopicsChanged() {
-          if (!this.topicThumbnailsService.displayMasonry) return;
-          if (!this.masonryContainerWidth) return;
+          if (!this.topicThumbnailsService.displayMasonry) {
+            return;
+          }
+          if (!this.masonryContainerWidth) {
+            return;
+          }
           once(this, this.calculateMasonryLayout);
         },
 
@@ -218,14 +226,16 @@ export default {
           tallestColumn,
           columnWidth
         ) {
-          if (!useMasonry) return;
+          if (!useMasonry) {
+            return;
+          }
 
-          return (
+          return htmlSafe(
             `--masonry-num-columns: ${Math.round(numColumns)}; ` +
-            `--masonry-grid-spacing: ${gridSpacingPixels}px; ` +
-            `--masonry-tallest-column: ${Math.round(tallestColumn)}px; ` +
-            `--masonry-column-width: ${Math.round(columnWidth)}px; `
-          ).htmlSafe();
+              `--masonry-grid-spacing: ${gridSpacingPixels}px; ` +
+              `--masonry-tallest-column: ${Math.round(tallestColumn)}px; ` +
+              `--masonry-column-width: ${Math.round(columnWidth)}px; `
+          );
         },
       });
 
@@ -235,15 +245,17 @@ export default {
 
         @discourseComputed("topic.masonryData")
         masonryStyle(masonryData) {
-          if (!masonryData) return;
+          if (!masonryData) {
+            return;
+          }
 
-          return (
+          return htmlSafe(
             `--masonry-height: ${Math.round(masonryData.height)}px; ` +
-            `--masonry-height-above: ${Math.round(
-              masonryData.heightAbove
-            )}px; ` +
-            `--masonry-column-index: ${masonryData.columnIndex};`
-          ).htmlSafe();
+              `--masonry-height-above: ${Math.round(
+                masonryData.heightAbove
+              )}px; ` +
+              `--masonry-column-index: ${masonryData.columnIndex};`
+          );
         },
       });
 
