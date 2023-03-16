@@ -153,15 +153,12 @@
     width: auto;
 
     a {
-      display: block;
       width: auto;
       margin: 0;
+      display: none;
 
-      &:first-of-type {
+      &.latest {
         display: block;
-      }
-      &:not(:first-of-type) {
-        display: none;
       }
     }
   }
@@ -368,8 +365,8 @@
     .topic-list-item {
       /*
       Variables set by javascript:
-      --masonry-height 
-      --masonry-height-above  
+      --masonry-height
+      --masonry-height-above
       --masonry-column-index
     */
 
